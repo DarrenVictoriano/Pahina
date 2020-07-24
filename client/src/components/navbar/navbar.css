@@ -1,8 +1,7 @@
-.type-width {
+.brand-name {
     min-width: 105px;
 }
 
-.dv-img {
-    height: 40px;
-    width: 40px;
+.brand-h1 {
+    font-size: 30px;
 }
