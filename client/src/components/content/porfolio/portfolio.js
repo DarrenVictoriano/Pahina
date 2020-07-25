@@ -7,32 +7,32 @@ const Portfolio = () => {
     const { mobileCheckState } = useContext(PostContext);
     const isMobile = mobileCheckState;
 
-    const atvAuditSRC = "https://via.placeholder.com/500x350";
+    const atvAuditSRC = "/portfolio/atvaudit-500x350.png";
     const atvAuditBody = "A fullstack web application that scans an Android device for all the packages currently installed in it and will highlight the application/s that had an update compared to the last time the atvAuto last scanned the same device device."
     const atvAuditStack = ["React", "Node.js", "Express", "Shell.js", "ADB", "ContextAPI"];
     const atvAuditLink = "";
 
-    const atvAutoSRC = "https://via.placeholder.com/500x350";
+    const atvAutoSRC = "/portfolio/atvauto-500x350.png";
     const atvAutoBody = "This is an AndroidTV automation framework, mostly used to stress test an Android TV. This tool uses Android Debug Shell (ADB) through IP to control the device.";
     const atvAutoStack = ["Python", "ADB", "TKinter"];
     const atvAutoLink = "";
 
-    const madPassSRC = "https://via.placeholder.com/500x350";
+    const madPassSRC = "/portfolio/maddpass-500x350.png";
     const madPassBody = "A fullstack web password manager, it uses AES (Advanced Encryption System) algorithm with a 256-bit encryption key to encrypt all the data and hashes the master password.";
     const madPassStack = ["React", "Node.js", "Express", "Crypto", "JSONWebToken"];
     const madPassLink = "";
 
-    const triviaGameSRC = "";
+    const triviaGameSRC = "/portfolio/trivia-500x350.png";
     const triviaGameBody = "";
     const triviaGameStack = [];
     const triviaGameLink = "";
 
-    const wordGameSRC = "";
+    const wordGameSRC = "/portfolio/word-500x350.png";
     const wordGameBody = "";
     const wordGameStack = [];
     const wordGameLink = "";
 
-    const scrapNewsSRC = "";
+    const scrapNewsSRC = "/portfolio/scrape-500x350.png";
     const scrapNewsBody = "";
     const scrapNewsStack = [];
     const scrapNewsLink = "";
@@ -44,7 +44,7 @@ const Portfolio = () => {
                 <div className={"row mb-5 " + (isMobile ? " " : "mx-5")}>
                     <div className="col-lg-6">
                         <div className={(isMobile ? "text-center" : "text-right")}>
-                            <img src={src} className="img-fluid rounded img-size" />
+                            <img src={src} className="img-fluid rounded" />
                         </div>
                     </div>
 
@@ -88,7 +88,7 @@ const Portfolio = () => {
 
                     <div className="col-lg-6">
                         <div className={(isMobile ? "text-center" : "text-left")}>
-                            <img src={src} className="img-fluid rounded img-size" />
+                            <img src={src} className="img-fluid rounded" />
                         </div>
                     </div>
                 </div >
