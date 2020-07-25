@@ -4,6 +4,7 @@ import NavBar from './components/navbar/navbar';
 import Helmet from 'react-helmet';
 import Home from './components/content/home/home';
 import { PostProvider } from './providers/postContext';
+import Portfolio from './components/content/porfolio/portfolio';
 
 function App() {
 
@@ -13,7 +14,9 @@ function App() {
 
         <Helmet bodyAttributes={{ style: 'background-color : #343a40' }} />
         <NavBar />
-        <Home />
+
+        {/* <Home /> */}
+        <Portfolio />
 
       </div>
     </PostProvider>
