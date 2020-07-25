@@ -6,7 +6,7 @@
 
 .home-content-mb {
     color: #9a9da0;
-    margin-top: 15vh;
+    margin-top: 20vh;
 }
 
 .home-content-title {
@@ -15,6 +15,10 @@
 
 .home-content-title-mb {
     font-size: 40px;
+}
+
+.home-content-desc-mb {
+    font-size: 14px;
 }
 
 .media-icons a {
@@ -31,5 +35,12 @@ color: #ffffff;
     margin-top: 0px;
     border-width: 2px;
     border-color: #474e56;
-    width: 60%;
+    width: 55%;
+}
+
+.title-hr-mb {
+    margin-top: 0px;
+    border-width: 2px;
+    border-color: #474e56;
+    width: 90%;
 }

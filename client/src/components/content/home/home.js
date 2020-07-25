@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { PostContext } from '../../../providers/postContext';
 import './home.css';
 
 const Home = () => {
 
+    const { mobileCheckState } = useContext(PostContext);
+    const isMobile = mobileCheckState;
+
     return (
-        <div className="home-content text-center">
-            <p className="text-light mb-0 p-0 home-content-title">
+        <div className={"text-center " + (isMobile ? "home-content-mb" : "home-content")}>
+            <p className={"text-light mb-0 p-0 " + (isMobile ? "home-content-title-mb" : "home-content-title")}>
                 Software Engineer
         </p>
-            <hr className="title-hr" />
-            <p className="text-muted lead">
+            <hr className={(isMobile ? "title-hr-mb" : "title-hr")} />
+            <p className={"text-muted " + (isMobile ? "home-content-desc-mb mx-2" : "lead")}>
                 Specializing in test automation and developing FullStack web application.
         </p>
             <div className="media-icons">
