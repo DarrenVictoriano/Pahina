@@ -1,70 +1,114 @@
 import React, { useContext } from 'react';
 import { PostContext } from '../../../providers/postContext';
-import Image from 'react-bootstrap/Image';
+import './portfolio.css';
 
 const Portfolio = () => {
 
     const { mobileCheckState } = useContext(PostContext);
     const isMobile = mobileCheckState;
 
+    const atvAuditSRC = "https://via.placeholder.com/500x350";
+    const atvAuditBody = "A fullstack web application that scans an Android device for all the packages currently installed in it and will highlight the application/s that had an update compared to the last time the atvAuto last scanned the same device device."
+    const atvAuditStack = ["React", "Node.js", "Express", "Shell.js", "ADB", "ContextAPI"];
+    const atvAuditLink = "";
+
+    const atvAutoSRC = "https://via.placeholder.com/500x350";
+    const atvAutoBody = "This is an AndroidTV automation framework, mostly used to stress test an Android TV. This tool uses Android Debug Shell (ADB) through IP to control the device.";
+    const atvAutoStack = ["Python", "ADB", "TKinter"];
+    const atvAutoLink = "";
+
+    const madPassSRC = "https://via.placeholder.com/500x350";
+    const madPassBody = "A fullstack web password manager, it uses AES (Advanced Encryption System) algorithm with a 256-bit encryption key to encrypt all the data and hashes the master password.";
+    const madPassStack = ["React", "Node.js", "Express", "Crypto", "JSONWebToken"];
+    const madPassLink = "";
+
+    const triviaGameSRC = "";
+    const triviaGameBody = "";
+    const triviaGameStack = [];
+    const triviaGameLink = "";
+
+    const wordGameSRC = "";
+    const wordGameBody = "";
+    const wordGameStack = [];
+    const wordGameLink = "";
+
+    const scrapNewsSRC = "";
+    const scrapNewsBody = "";
+    const scrapNewsStack = [];
+    const scrapNewsLink = "";
+
+    const contentCreator = (pos, src, title, body, stacks = [], link) => {
+
+        if (pos === "left") {
+            return (
+                <div className={"row mb-5 " + (isMobile ? " " : "mx-5")}>
+                    <div className="col-lg-6">
+                        <div className={(isMobile ? "text-center" : "text-right")}>
+                            <img src={src} className="img-fluid rounded img-size" />
+                        </div>
+                    </div>
+
+                    <div className="col-lg-6">
+                        <div className={"text-left " + (isMobile ? "pt-3 " : "mt-5 pt-3 pr-5")}>
+                            <h3 className="title-color">{title}</h3>
+                            <p>{body + " "}
+                                <a href={link}>
+                                    <span>Learn More</span>
+                                </a>
+                            </p>
+
+
+                            <div className={"text-white small " + (isMobile ? "text-center" : " ")}>
+                                {stacks.map((item) => (
+                                    <span className={(isMobile ? "px-1" : "px-3")}>{item}</span>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        } else {
+            return (
+                <div className={"row mb-5 " + (isMobile ? " " : "mx-5")}>
+                    <div className="col-lg-6">
+                        <div className={"text-right " + (isMobile ? "pt-3 " : "mt-5 pt-3 pl-5")}>
+                            <h3 className="title-color">{title}</h3>
+                            <p>{body + " "}
+                                <a href={link}>
+                                    <span>Learn More</span>
+                                </a>
+                            </p>
+                            <div className={"text-white small " + (isMobile ? "text-center" : " ")}>
+                                {stacks.map((item) => (
+                                    <span className={(isMobile ? "px-1" : "px-3")}>{item}</span>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="col-lg-6">
+                        <div className={(isMobile ? "text-center" : "text-left")}>
+                            <img src={src} className="img-fluid rounded img-size" />
+                        </div>
+                    </div>
+                </div >
+            );
+        }
+    }
+
     return (
-        <div className="container mt-5">
-            <div className="row mx-5 mb-5">
-                <div className="col-sm-6">
-                    <div className="text-right">
-                        <img src="https://via.placeholder.com/500x350" className="img-fluid rounded" />
-                    </div>
-                </div>
+        <div className={"container " + (isMobile ? "mt-3" : "mt-5")}>
 
-                <div className="col-sm-6">
-                    <div className="text-left mt-5 pt-5 pr-5">
-                        <h3>atvAudit</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    </div>
-                </div>
-            </div>
+            {contentCreator("left", atvAuditSRC, "atvAudit", atvAuditBody, atvAuditStack, "#")}
 
             {/* ------------------------------------------------------ */}
 
-            <div className="row mx-5 mb-5">
-                <div className="col-sm-6">
-                    <div className="text-right mt-5 pt-5 pl-5">
-                        <h3>atvAuto</h3>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                            Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                            Excepteur sint occaecat cupidatat non proident,
-                            sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-                    </div>
-                </div>
-
-                <div className="col-sm-6">
-                    <div className="text-left">
-                        <img src="https://via.placeholder.com/500x350" className="img-fluid rounded" />
-                    </div>
-                </div>
-            </div>
+            {isMobile ? contentCreator("left", atvAutoSRC, "atvAuto", atvAutoBody, atvAutoStack, "#")
+                : contentCreator("right", atvAutoSRC, "atvAuto", atvAutoBody, atvAutoStack, "#")}
 
             {/* ------------------------------------------------------ */}
 
-            <div className="row mx-5 mb-5">
-                <div className="col-sm-6">
-                    <div className="text-right">
-                        <img src="https://via.placeholder.com/500x350" className="img-fluid rounded" />
-                    </div>
-                </div>
-
-                <div className="col-sm-6">
-                    <div className="text-left mt-5 pt-5 pr-5">
-                        <h3>MadPass</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    </div>
-                </div>
-            </div>
+            {contentCreator("left", madPassSRC, "madPass", madPassBody, madPassStack, "#")}
 
         </div>
     );

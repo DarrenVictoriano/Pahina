@@ -1,0 +1,16 @@
+.img-size {
+    height: 350px;
+    width: 500px;
+}
+
+.title-color {
+    color: rgb(193, 211, 235);
+}
+
+p a {
+    color: rgb(193, 211, 235);
+}
+
+p a:hover {
+    color: white;
+}

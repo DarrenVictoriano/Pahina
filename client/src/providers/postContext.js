@@ -5,7 +5,7 @@ export const PostContext = createContext();
 
 export const PostProvider = (props) => {
     // this will return true if viewport is less than 500px
-    const isMobile = useMediaQuery({ query: '(max-width: 500px)' });
+    const isMobile = useMediaQuery({ query: '(max-width: 991px)' });
 
     // this will hold all my blog post
     const [postData, setPostData] = useState({
