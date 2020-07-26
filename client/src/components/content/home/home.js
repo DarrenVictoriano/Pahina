@@ -17,18 +17,17 @@ const Home = () => {
                 Specializing in test automation and developing FullStack web application.
         </p>
             <div className="media-icons">
-                <a href="https://www.linkedin.com/in/darren-victoriano/" target="_blank" data-toggle="tooltip"
-                    data-placement="top" title="Tooltip on top">
-                    <i class="fab fa-linkedin fa-2x"></i>
+                <a href="https://www.linkedin.com/in/darren-victoriano/" target="_blank" rel="noopener noreferrer">
+                    <i className="fab fa-linkedin fa-2x"></i>
                 </a>
-                <a href="https://github.com/DarrenVictoriano" target="_blank">
-                    <i class="fab fa-github fa-2x"></i>
+                <a href="https://github.com/DarrenVictoriano" target="_blank" rel="noopener noreferrer">
+                    <i className="fab fa-github fa-2x"></i>
                 </a>
                 {/* <a href="images/VR040.pdf" target="_blank">
             <i class="fas fa-file-alt fa-2x"></i>
           </a> */}
                 <a href="mailto:darren.victoriano@gmail.com">
-                    <i class="fas fa-envelope fa-2x"></i>
+                    <i className="fas fa-envelope fa-2x"></i>
                 </a>
             </div>
         </div>

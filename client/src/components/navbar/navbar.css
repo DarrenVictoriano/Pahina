@@ -5,3 +5,7 @@
 .brand-h1 {
     font-size: 30px;
 }
+
+.link-style:hover {
+    text-decoration: none;
+}

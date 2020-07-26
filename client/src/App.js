@@ -5,21 +5,32 @@ import Helmet from 'react-helmet';
 import Home from './components/content/home/home';
 import { PostProvider } from './providers/postContext';
 import Portfolio from './components/content/porfolio/portfolio';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
 
   return (
-    <PostProvider>
-      <div className="App container-fluid px-0">
+    <Router>
+      <Switch>
+        <PostProvider>
+          <div className="App container-fluid px-0">
 
-        <Helmet bodyAttributes={{ style: 'background-color : #343a40' }} />
-        <NavBar />
+            <Helmet bodyAttributes={{ style: 'background-color : #343a40' }} />
+            <NavBar />
 
-        {/* <Home /> */}
-        <Portfolio />
+            <Route exact path="/">
+              <Home />
+            </Route>
 
-      </div>
-    </PostProvider>
+            <Route path="/portfolio">
+              <Portfolio />
+            </Route>
+
+          </div>
+        </PostProvider>
+      </Switch>
+    </Router>
+
   );
 }
 
