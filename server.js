@@ -19,21 +19,21 @@ if (process.env.NODE_ENV === "production") {
 
 // Save space for MongoDB
 // // Initialize MongoDB
-// const mongoose = require('mongoose');
-// let DB = process.env.MONGO_LOCAL_DB;
+const mongoose = require('mongoose');
+let DB = process.env.MONGODB_URI;
 
 // // Connect to MongoDB
-// mongoose.connect(DB, {
-//     useNewUrlParser: true,
-//     useCreateIndex: true,
-//     useUnifiedTopology: true
-// })
-//     .then(() => {
-//         console.log("MongoDB connected Successfully!");
-//     })
-//     .catch(err => {
-//         console.log("MongoDB connection Error: " + err);
-//     });
+mongoose.connect(DB, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true
+})
+    .then(() => {
+        console.log("MongoDB connected Successfully!");
+    })
+    .catch(err => {
+        console.log("MongoDB connection Error: " + err);
+    });
 
 // Server PORT
 const PORT = process.env.PORT || 5000;
