@@ -65,15 +65,15 @@ const Portfolio = () => {
 
                     <div className="col-lg-6">
                         <div className={"text-left " + (isMobile ? "pt-3 " : "mt-5 pt-3 pr-5")}>
-                            <h3 className="title-color">{project.title}</h3>
+                            <h3 className="text-slate-lightest">{project.title}</h3>
                             <p>{project.body + " "}
-                                <a href={project.link}>
+                                <a className="learn-more" target="_blank" href={project.link}>
                                     <span>Learn More</span>
                                 </a>
                             </p>
 
 
-                            <div className={"text-white small " + (isMobile ? "text-center" : " ")}>
+                            <div className={"text-green small " + (isMobile ? "text-center" : " ")}>
                                 {project.stacks.map((item) => (
                                     <span className={(isMobile ? "px-1" : "px-3")}>{item}</span>
                                 ))}
@@ -87,13 +87,13 @@ const Portfolio = () => {
                 <div className={"row mb-5 " + (isMobile ? " " : "mx-5")}>
                     <div className="col-lg-6">
                         <div className={"text-right " + (isMobile ? "pt-3 " : "mt-5 pt-3 pl-5")}>
-                            <h3 className="title-color">{project.title}</h3>
+                            <h3 className="text-slate-lightest">{project.title}</h3>
                             <p>{project.body + " "}
-                                <a href={project.link}>
+                                <a className="learn-more" target="_blank" href={project.link}>
                                     <span>Learn More</span>
                                 </a>
                             </p>
-                            <div className={"text-white small " + (isMobile ? "text-center" : " ")}>
+                            <div className={"text-green small " + (isMobile ? "text-center" : " ")}>
                                 {project.stacks.map((item) => (
                                     <span className={(isMobile ? "px-1" : "px-3")}>{item}</span>
                                 ))}
@@ -124,7 +124,7 @@ const Portfolio = () => {
     }
 
     return (
-        <div className={"container " + (isMobile ? "mt-3" : "mt-5")}>
+        <div className={"container text-slate " + (isMobile ? "pt-8" : "pt-10")}>
 
             {
                 projects.map((item, i) => (

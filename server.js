@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 // Initialize Express
 const express = require('express');
 const app = express();
@@ -5,6 +7,11 @@ const app = express();
 // Initialize Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+// Serve static asset (when deployed to heroku)
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static("client/build"));
+}
 
 // Save this space for the routes
 // const routes = require('./routes');

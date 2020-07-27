@@ -15,7 +15,7 @@ function App() {
         <PostProvider>
           <div className="App container-fluid px-0">
 
-            <Helmet bodyAttributes={{ style: 'background-color : #343a40' }} />
+            <Helmet bodyAttributes={{ style: 'background-color : #0a192f' }} />
             <NavBar />
 
             <Route exact path="/">

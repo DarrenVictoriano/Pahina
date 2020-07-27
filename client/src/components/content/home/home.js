@@ -9,11 +9,11 @@ const Home = () => {
 
     return (
         <div className={"text-center " + (isMobile ? "home-content-mb" : "home-content")}>
-            <p className={"text-light mb-0 p-0 " + (isMobile ? "home-content-title-mb" : "home-content-title")}>
+            <p className={"text-slate-lightest mb-0 p-0 " + (isMobile ? "home-content-title-mb" : "home-content-title")}>
                 Software Engineer
         </p>
             <hr className={(isMobile ? "title-hr-mb" : "title-hr")} />
-            <p className={"text-muted " + (isMobile ? "home-content-desc-mb mx-2" : "lead")}>
+            <p className={"text-slate " + (isMobile ? "home-content-desc-mb mx-2" : "lead")}>
                 Specializing in test automation and developing FullStack web application.
         </p>
             <div className="media-icons">
