@@ -56,7 +56,7 @@ const Portfolio = () => {
 
         if (pos === "left") {
             return (
-                <div className={"row mb-5 " + (isMobile ? " " : "mx-5")}>
+                <div className={"row mb-7 " + (isMobile ? " " : "mx-5")}>
                     <div className="col-lg-6">
                         <div className={(isMobile ? "text-center" : "text-right")}>
                             <img alt={project.title} src={project.src} className="img-fluid rounded" />
@@ -80,11 +80,12 @@ const Portfolio = () => {
                             </div>
                         </div>
                     </div>
+                    <hr className="project-hr mt-7" />
                 </div>
             );
         } else {
             return (
-                <div className={"row mb-5 " + (isMobile ? " " : "mx-5")}>
+                <div className={"row mb-7 " + (isMobile ? " " : "mx-5")}>
                     <div className="col-lg-6">
                         <div className={"text-right " + (isMobile ? "pt-3 " : "mt-5 pt-3 pl-5")}>
                             <h3 className="text-slate-lightest">{project.title}</h3>
@@ -106,6 +107,7 @@ const Portfolio = () => {
                             <img alt={project.title} src={project.src} className="img-fluid rounded" />
                         </div>
                     </div>
+                    <hr className="project-hr mt-7" />
                 </div >
             );
         }
