@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const makePrivate = require('../../middleware/validateToken');
+const makePrivate = require('../../middleware/validateToken').validateToken;
 const postsController = require('../../controllers/postsController');
 
 // @route           api/post

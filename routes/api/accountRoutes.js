@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const makePrivate = require('../../middleware/validateToken');
+const makePrivate = require('../../middleware/validateToken').validateToken;
 const accountController = require('../../controllers/accountController');
 
 // @route       api/user/register
@@ -14,7 +14,7 @@ router.route("/auth")
 
 // @route       api/user/del/_id
 // @desc-DEL    Delete account
-router.route("/del/:id")
+router.route("/delete/:id")
     .delete(makePrivate, accountController.deleteAccount);
 
 module.exports = router;
