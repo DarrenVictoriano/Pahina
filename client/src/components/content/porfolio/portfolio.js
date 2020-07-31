@@ -67,7 +67,7 @@ const Portfolio = () => {
                         <div className={"text-left " + (isMobile ? "pt-3 " : "mt-5 pt-3 pr-5")}>
                             <h3 className="text-slate-lightest">{project.title}</h3>
                             <p>{project.body + " "}
-                                <a className="learn-more" target="_blank" href={project.link}>
+                                <a className="learn-more" target="_blank" rel="noopener noreferrer" href={project.link}>
                                     <span>Learn More</span>
                                 </a>
                             </p>
@@ -90,7 +90,7 @@ const Portfolio = () => {
                         <div className={"text-right " + (isMobile ? "pt-3 " : "mt-5 pt-3 pl-5")}>
                             <h3 className="text-slate-lightest">{project.title}</h3>
                             <p>{project.body + " "}
-                                <a className="learn-more" target="_blank" href={project.link}>
+                                <a className="learn-more" target="_blank" rel="noopener noreferrer" href={project.link}>
                                     <span>Learn More</span>
                                 </a>
                             </p>
