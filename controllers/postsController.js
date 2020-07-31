@@ -1,5 +1,5 @@
 require('dotenv').config();
-const Posts = require('../../models/postModel');
+const Posts = require('../models/postModel');
 
 module.exports = {
     // ***********************************************************************************************
