@@ -14,8 +14,8 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Save this space for the routes
-// const routes = require('./routes');
-// app.use(routes);
+const routes = require('./routes');
+app.use(routes);
 
 // Save space for MongoDB
 // // Initialize MongoDB
