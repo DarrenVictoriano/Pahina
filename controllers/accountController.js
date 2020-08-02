@@ -116,8 +116,19 @@ module.exports = {
     // ***********************************************************************************************
     readAllDevOnly: async function (req, res, next) {
         try {
-            let allAccount = await Account.find();
+            let allAccount = await Account.find().populate("posts");
             res.status(200).json(allAccount);
+        } catch (err) {
+            next(err);
+        }
+    },
+    // ***********************************************************************************************
+    // ************************************** Get Account info ***************************************
+    // ***********************************************************************************************
+    getAccountInfo: async function (req, res, next) {
+        try {
+            let accountInfo = await Account.findById({ "_id": req.params.id }).populate("posts");
+            res.status(200).json(accountInfo);
         } catch (err) {
             next(err);
         }

@@ -16,9 +16,13 @@ router.route("/")
 router.route("/auth")
     .post(accountController.authenticateUser);
 
-// @route       api/user/_id
-// @desc-DEL    Delete account
+
 router.route("/:id")
+    // @route       api/user/_id
+    // @desc-GET    Get account info
+    .get(makePrivate, accountController.getAccountInfo)
+    // @route       api/user/_id
+    // @desc-DEL    Delete account
     .delete(makePrivate, accountController.deleteAccount);
 
 module.exports = router;

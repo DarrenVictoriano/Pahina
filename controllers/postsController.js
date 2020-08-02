@@ -1,91 +1,93 @@
 require('dotenv').config();
 const Posts = require('../models/postModel');
+const Account = require('../models/accountModel');
+const AppError = require('../middleware/AppError');
 
 module.exports = {
     // ***********************************************************************************************
     // ************************************** Create new Post ****************************************
     // ***********************************************************************************************
-    addPost: function (req, res) {
-        // get posted data
-        const { _id, title, overview, body } = req.body;
+    addPost: async function (req, res, next) {
+        try {
+            // get posted data
+            const { _id, title, overview, body } = req.body;
 
-        // create a new post using the model from the data we got
-        const newPost = new Posts({ title, overview, body });
+            if (!_id || !title || !overview || !body) {
+                return next(new AppError("Fill All Fields", 400));
+            }
 
-        // save the newPost into the Post DB
-        newPost.save()
+            // create a new post using the model from the data we got
+            const newPost = new Posts({ title, overview, body });
+
+            // save the newPost into the Post DB
+            let savedPost = await newPost.save();
+
             // then add that item to the accounts that currently signin
-            .then(item => {
-                return Posts.findOneAndUpdate(
-                    { _id },
-                    { $push: { posts: item._id } },
-                    { new: true })
-                    .populate("posts")
-            })
-            .then(accountInfo => {
-                res.status(200).json(accountInfo);
-            })
-            .catch(err => {
-                res.status(400).json({ "error": err });
-            });
+            let accountInfo = await Account.findOneAndUpdate(
+                { _id },
+                { $push: { posts: savedPost._id } },
+                { new: true }
+            ).populate("posts");
+
+            res.status(200).json(accountInfo);
+
+        } catch (err) {
+            next(err);
+        }
     },
     // ***********************************************************************************************
     // *********************************** Update existing Post **************************************
     // ***********************************************************************************************
-    updatePost: function (req, res) {
-        // get posted data
-        const { _id, title, overview, body } = req.body;
+    updatePost: async function (req, res, next) {
+        try {
+            // get posted data
+            const { title, overview, body } = req.body;
 
-        Posts.findOneAndUpdate({ _id }, { title, overview, body })
-            .then(updatedItem => {
-                res.status(200).json(updatedItem);
-            })
-            .catch(err => {
-                res.status(400).json(err);
-            });
+            if (!title || !overview || !body) {
+                return next(new AppError("Fill All Fields", 400));
+            }
+
+            let updatedItem = await Posts.findOneAndUpdate(
+                { "_id": req.params.id },
+                { title, overview, body },
+                { new: true });
+
+            res.status(200).json(updatedItem);
+        } catch (err) {
+            next(err);
+        }
     },
     // ***********************************************************************************************
     // *************************************** delete Post *******************************************
     // ***********************************************************************************************
-    deletePost: function (req, res) {
-        // get ID you want to delete
-        const { _id } = req.params;
-
-        Posts.findByIdAndDelete({ _id })
-            .then(deletedItem => {
-                res.status(200).json(deletedItem);
-            })
-            .catch(err => {
-                res.status(400).json(err);
-            });
+    deletePost: async function (req, res, next) {
+        try {
+            await Posts.findOneAndDelete({ "_id": req.params.id });
+            res.status(200).json({ "message": "deletion success" });
+        } catch (err) {
+            next(err);
+        }
     },
     // ***********************************************************************************************
     // ************************************** Get One Post *******************************************
     // ***********************************************************************************************
-    getPost: function (req, res) {
-        // get ID
-        const { _id } = req.params;
-
-        Posts.findById({ _id })
-            .then(item => {
-                res.status(200).json(item);
-            })
-            .catch(err => {
-                res.status(400).json(err);
-            })
+    getPost: async function (req, res, next) {
+        try {
+            let post = await Posts.findById({ "_id": req.params.id });
+            res.status(200).json(post);
+        } catch (err) {
+            next(err);
+        }
     },
     // ***********************************************************************************************
     // ************************************** Get All Post *******************************************
     // ***********************************************************************************************
-    getAllPost: function (req, res) {
-        Posts.find()
-            .then(allItem => {
-                res.status(200).json(allItem);
-            })
-            .catch(err => {
-                res.status(400).json(err);
-            });
+    getAllPost: async function (req, res, next) {
+        try {
+            let allPosts = await Posts.find();
+            res.status(200).json(allPosts);
+        } catch (err) {
+            next(err);
+        }
     }
 }
-
-// TODO: refactor into async await format then test API on postman
