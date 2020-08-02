@@ -4,10 +4,10 @@ const postsController = require('../../controllers/postsController');
 
 // @route           api/post
 // @des-POST        Add new post
-router.route("/post/add")
+router.route("/")
     .post(makePrivate, postsController.addPost);
 
-router.route("/post/:id")
+router.route("/:id")
     // @route           api/post/_id
     // @des-PUT         update existing post
     .put(makePrivate, postsController.updatePost)
