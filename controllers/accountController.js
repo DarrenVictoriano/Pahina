@@ -2,129 +2,124 @@ require('dotenv').config();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Account = require('../models/accountModel');
+const AppError = require('../middleware/AppError');
 
 module.exports = {
     // ***********************************************************************************************
     // ************************************** Create new User ****************************************
     // ***********************************************************************************************
-    registerAccount: function (req, res) {
-        const { username, password } = req.body;
+    registerAccount: async function (req, res, next) {
+        try {
+            // get posted data
+            const { username, password } = req.body;
 
-        // check if data exists
-        if (!username || !password) {
-            return res.status(400).json({ "error": "Fill all fields." });
-        }
+            // check if data exists if not throw an error
+            if (!username || !password) {
+                return next(new AppError("Fill All Fields", 400));
+            }
 
-        // check existing user
-        Account.findOne({ username })
-            .then(user => {
-                // error if user already exists
-                if (user) {
-                    return res.status(400).json({ "error": "User already exists." });
-                }
+            // look for username in the database
+            let user = await Account.findOne({ username }).populate("posts").select("-password");
 
-                // otherwise create new user
-                const newUser = new Account({ username, password });
+            // if user is already exists then throw an error
+            if (user) {
+                return next(new AppError("User Already Exists.", 400));
+            }
 
-                // generate salt to hash the password
-                bcrypt.genSalt(10, (err, salt) => {
-                    if (err) {
-                        throw err;
-                    }
+            // otherwise, create new data entry using the schema
+            const newUser = new Account({ username, password });
 
-                    // generate hash
-                    bcrypt.hash(newUser.password, salt, (err, hash) => {
-                        if (err) {
-                            throw err;
-                        }
+            // hash the password
+            let hashedPass = await bcrypt.hash(newUser.password, 10);
 
-                        // set the new password as the hash
-                        newUser.password = hash;
+            // saved it as the new password
+            newUser.password = hashedPass;
 
-                        // this to databse
-                        newUser.save().then(user => {
-                            // generate web token
-                            jwt.sign(
-                                { id: user._id },
-                                process.env.JWT_SECRET,
-                                { expiresIn: 3600 },
-                                (err, token) => {
-                                    if (err) {
-                                        throw err;
-                                    }
+            // save it in the Database
+            let savedUser = await newUser.save();
 
-                                    res.status(200).json({
-                                        "token": token,
-                                        "_id": user._id,
-                                        "username": user.username
-                                    });
-                                }
-                            );
-                        });
-                    });
-                });
-            })
-            .catch(err => {
-                res.status(400).json({ "error registering": err });
+            // generate a json token
+            let token = jwt.sign({ id: savedUser._id }, process.env.JWT_SECRET, { expiresIn: 3600 });
+
+            // send the data back to the client along with the token
+            res.status(200).json({
+                "token": token,
+                "_id": savedUser._id,
+                "username": savedUser.username,
+                "posts": savedUser.posts
             });
+        } catch (err) {
+            next(err);
+        }
     },
     // ***********************************************************************************************
     // ************************************* Authenticate User ***************************************
     // ***********************************************************************************************
-    authenticateUser: function (req, res) {
-        const { username, password } = req.body;
+    authenticateUser: async function (req, res, next) {
+        try {
+            // get posted data
+            const { username, password } = req.body;
 
-        if (!username || !password) {
-            return res.status(400).json({ "error": "Fill all fields." });
+            // check if all fields are filled
+            if (!username || !password) {
+                return next(new AppError("Fill All Fields.", 400));
+            }
+
+            // look in the database for the specified username
+            let userInfo = await Account.findOne({ username }).populate("posts");
+
+            // if not found then send error
+            if (!userInfo) {
+                return next(new AppError("User not found", 404));
+            }
+
+            // otherwise, check if the password match the hashed password
+            let passwordMatch = await bcrypt.compare(password, userInfo.password);
+
+            // if password do not match then return an error
+            if (!passwordMatch) {
+                return next(new AppError("Incorrect password.", 400));
+            }
+
+            // if it matched then generate a web token
+            let token = await jwt.sign({ id: userInfo._id }, process.env.JWT_SECRET, { expiresIn: 3600 });
+
+            if (!token) {
+                return res.status(400).json({ "message": "token generation failed" });
+            }
+
+            // then send the data back along with the token
+            res.status(200).json({
+                "token:": token,
+                "_id": userInfo._id,
+                "username": userInfo.username,
+                "posts": userInfo.posts
+            });
+        } catch (err) {
+            next(err);
         }
 
-        Account.findOne({ username })
-            .populate("posts")
-            .then(user => {
-                // check if there is a user found
-                if (!user) {
-                    return res.status(400).json({ "error": "user not found!" });
-                }
-
-                // check authenticity of the password
-                bcrypt.compare(password, user.password)
-                    .then(isMatch => {
-                        if (!isMatch) {
-                            return res.status(400).json({ "error": "incorrect password!" });
-                        }
-
-                        // if password matched then generate json web token
-                        jwt.sign(
-                            { id: user._id },
-                            process.env.JWT_SECRET,
-                            { expiresIn: 3600 },
-                            (err, token) => {
-                                if (err) throw err;
-
-                                res.status(200).json({
-                                    "token": token,
-                                    "_id": user._id,
-                                    "username": user.username,
-                                    "posts": user.post
-                                });
-                            }
-                        );
-                    })
-            })
-            .catch(err => {
-                res.status(400).json({ "error": err });
-            });
     },
     // ***********************************************************************************************
     // **************************************** Delete User ******************************************
     // ***********************************************************************************************
-    deleteAccount: function (req, res) {
-        Account.deleteOne({ "_id": req.params.id })
-            .then(user => {
-                res.status(200).json({ "deleted": user });
-            })
-            .catch(err => {
-                res.status(400).json({ "error": err });
-            });
+    deleteAccount: async function (req, res, next) {
+        try {
+            await Account.deleteOne({ "_id": req.params.id });
+            res.status(200).json({ "message": "success" });
+        } catch (err) {
+            next(err);
+        }
+    },
+    // ***********************************************************************************************
+    // **************************************** Get All User *****************************************
+    // ***********************************************************************************************
+    readAllDevOnly: async function (req, res, next) {
+        try {
+            let allAccount = await Account.find();
+            res.status(200).json(allAccount);
+        } catch (err) {
+            next(err);
+        }
     }
 }
