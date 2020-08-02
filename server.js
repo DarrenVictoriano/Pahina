@@ -1,10 +1,18 @@
-require('dotenv').config();
-
 // Initialize Express
 const express = require('express');
 const app = express();
+const helmet = require('helmet');
+const morgan = require('morgan');
+const cors = require('cors');
+const middleware = require('./middleware/errorHandler');
+
+// for environment variable
+require('dotenv').config();
 
 // Initialize Middleware
+app.use(morgan('dev'));
+app.use(helmet());
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -17,12 +25,14 @@ if (process.env.NODE_ENV === "production") {
 const routes = require('./routes');
 app.use(routes);
 
-// Save space for MongoDB
-// // Initialize MongoDB
+// apply error hanlder
+app.use(middleware.errorHandler);
+
+// Initialize MongoDB
 const mongoose = require('mongoose');
 let DB = process.env.MONGODB_URI;
 
-// // Connect to MongoDB
+// Connect to MongoDB
 mongoose.connect(DB, {
     useNewUrlParser: true,
     useCreateIndex: true,
