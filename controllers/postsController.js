@@ -88,4 +88,4 @@ module.exports = {
     }
 }
 
-// TODO: test API on postman
+// TODO: refactor into async await format then test API on postman
