@@ -1,18 +1,21 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Typewriter from 'typewriter-effect';
 import './navbar.css';
 import { PostContext } from '../../providers/postContext';
+import { NavLink } from 'react-router-dom';
 
 const NavBar = (props) => {
+
+    const [expanded, setExpanded] = useState(false);
 
     const { mobileCheckState } = useContext(PostContext);
     const isMobile = mobileCheckState;
 
 
     return (
-        <Navbar fixed="top" collapseOnSelect expand="lg" className="bg-navy" variant={(isMobile ? "dark" : "text-slate")}>
+        <Navbar fixed="top" expanded={expanded} expand="lg" className="bg-navy" variant={(isMobile ? "dark" : "text-slate")}>
             <Navbar.Brand className="brand-name" href="/post-form">
                 <h1 className="brand-h1">
                     <Typewriter
@@ -27,25 +30,51 @@ const NavBar = (props) => {
                     />
                 </h1>
             </Navbar.Brand>
-            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Toggle onClick={() => setExpanded(expanded ? false : "expanded")} aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
 
                 </Nav>
-                <Nav className="nav-link">
-                    <Nav.Link className="px-3" href="/">Home</Nav.Link>
+                <Nav className="nav-link ">
+                    <NavLink
+                        exact to="/"
+                        className="px-3 nav-link"
+                        activeClassName="active"
+                        onClick={() => setExpanded(false)}>
+                        Home
+                    </NavLink>
 
-                    {/* <Link to="/portfolio" className="link-style"> */}
-                    <Nav.Link className="px-3 nav-link" href="/portfolio">Portfolio</Nav.Link>
-                    {/* </Link> */}
+                    <NavLink
+                        exact to="/portfolio"
+                        className="px-3 nav-link"
+                        activeClassName="active"
+                        onClick={() => setExpanded(false)}>
+                        Portfolio
+                    </NavLink>
 
-                    <Nav.Link className="px-3 nav-link" href="/posts">Posts</Nav.Link>
+                    <NavLink
+                        exact to="/posts"
+                        className="px-3 nav-link"
+                        activeClassName="active"
+                        onClick={() => setExpanded(false)}>
+                        Posts
+                    </NavLink>
 
-                    <Nav.Link className="px-3 nav-link" target="_blank" href="/resume/VR040.pdf">Resume</Nav.Link>
+                    <NavLink
+                        exact to="/resume/VR040.pdf"
+                        className="px-3 nav-link"
+                        target="_blank"
+                        onClick={() => setExpanded(false)}>
+                        Resume
+                    </NavLink>
 
-                    <Nav.Link className="px-3 nav-link" href="/deets">
+                    <NavLink
+                        exact to="/deets"
+                        className="px-3 nav-link"
+                        activeClassName="active"
+                        onClick={() => setExpanded(false)}>
                         <i className="fas fa-lock"></i>
-                    </Nav.Link>
+                    </NavLink>
                 </Nav>
             </Navbar.Collapse>
         </Navbar >
