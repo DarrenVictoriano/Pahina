@@ -14,7 +14,7 @@ const Home = () => {
         </p>
             <hr className={(isMobile ? "title-hr-mb" : "title-hr")} />
             <p className={"text-slate " + (isMobile ? "home-content-desc-mb mx-2" : "lead")}>
-                Specializing in test automation and developing FullStack web application.
+                Specializing in Test Automation and developing FullStack Web Application.
         </p>
             <div className="media-icons">
                 <a href="https://www.linkedin.com/in/darren-victoriano/" target="_blank" rel="noopener noreferrer">
