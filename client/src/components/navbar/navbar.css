@@ -18,6 +18,10 @@
     min-width: 105px;
 }
 
+.brand-link:hover {
+    text-decoration: none;
+}
+
 .brand-h1 {
     font-size: 30px;
     color: #64ffda;
