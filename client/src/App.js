@@ -8,6 +8,8 @@ import Portfolio from './components/content/porfolio/portfolio';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import PostPage from './components/content/posts/postPage';
 import PostBody from './components/content/posts/postBody';
+import PostForm from './components/content/posts/postForm';
+import Login from './components/auth/login';
 
 function App() {
 
@@ -22,8 +24,10 @@ function App() {
 
             <Route exact path="/" component={Home} />
             <Route exact path="/portfolio" component={Portfolio} />
-            <Route exact path="/posts" component={PostPage} />
-            <Route exact path="/post/:id" component={PostBody} />
+            <Route exact path="/blog" component={PostPage} />
+            <Route exact path="/blog/:id" component={PostBody} />
+            <Route exact path="/postform" component={PostForm} />
+            <Route exact path="/deets" component={Login} />
 
           </div>
         </PostProvider>
