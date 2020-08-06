@@ -6,7 +6,7 @@ const postsController = require('../../controllers/postsController');
 router.route("/")
     // @route           api/v1/post/
     // @des-GET         Get All Post
-    .get(makePrivate, postsController.getAllPost)
+    .get(postsController.getAllPost)
     // @route           api/v1/post/
     // @des-POST        Add new post
     .post(makePrivate, postsController.addPost);
@@ -14,7 +14,7 @@ router.route("/")
 router.route("/:id")
     // @route           api/v1/post/
     // @des-Get         get post
-    .get(makePrivate, postsController.getPost)
+    .get(postsController.getPost)
     // @route           api/v1/post/_id
     // @des-PUT         update existing post
     .put(makePrivate, postsController.updatePost)
