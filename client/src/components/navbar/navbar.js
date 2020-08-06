@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Typewriter from 'typewriter-effect';
@@ -9,26 +9,56 @@ import { NavLink } from 'react-router-dom';
 const NavBar = (props) => {
 
     const [expanded, setExpanded] = useState(false);
-
-    const { mobileCheckState } = useContext(PostContext);
+    const { mobileCheckState, accountInfoState } = useContext(PostContext);
     const isMobile = mobileCheckState;
+    const [accountInfo, setAccountInfo] = accountInfoState;
 
+    // TODO: componentDidMount hook
+    useEffect(() => {
+
+    });
+
+    const handleLogout = () => {
+        // reset to defaul value so we logout
+        setAccountInfo({
+            "token": "",
+            "_id": "",
+            "username": "",
+            "posts": [{
+                "_id": "",
+                "title": "",
+                "overview": "",
+                "body": "",
+                "date_created": ""
+            }]
+        });
+
+        // this is for mobile view
+        setExpanded(false);
+    }
 
     return (
         <Navbar fixed="top" expanded={expanded} expand="lg" className="bg-navy" variant={(isMobile ? "dark" : "text-slate")}>
-            <Navbar.Brand className="brand-name" href="/post-form">
-                <h1 className="brand-h1">
-                    <Typewriter
-                        options={{
-                            strings: ['Darren', 'Victoriano', "へ‿(ツ)‿ㄏ", "Darren Victoriano"],
-                            autoStart: true,
-                            loop: true,
-                            pauseFor: 100,
-                            changeDeleteSpeed: 1,
-                            changeDelay: 1
-                        }}
-                    />
-                </h1>
+            <Navbar.Brand className="brand-name">
+                <NavLink
+                    exact to="/deets"
+                    className="brand-link"
+                    activeClassName="active"
+                    onClick={() => setExpanded(false)}>
+                    <h1 className="brand-h1">
+                        <Typewriter
+                            options={{
+                                strings: ['Darren', 'Victoriano', "へ‿(ツ)‿ㄏ", "Darren Victoriano"],
+                                autoStart: true,
+                                loop: true,
+                                pauseFor: 100,
+                                changeDeleteSpeed: 1,
+                                changeDelay: 1
+                            }}
+                        />
+                    </h1>
+                </NavLink>
+
             </Navbar.Brand>
             <Navbar.Toggle onClick={() => setExpanded(expanded ? false : "expanded")} aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
@@ -53,12 +83,22 @@ const NavBar = (props) => {
                     </NavLink>
 
                     <NavLink
-                        exact to="/posts"
+                        exact to="/blog"
                         className="px-3 nav-link"
                         activeClassName="active"
                         onClick={() => setExpanded(false)}>
-                        Posts
+                        Blog
                     </NavLink>
+
+                    {accountInfo.token &&
+                        <NavLink
+                            exact to="/postform"
+                            className="px-3 nav-link"
+                            activeClassName="active"
+                            onClick={() => setExpanded(false)}>
+                            Post Form
+                        </NavLink>
+                    }
 
                     <NavLink
                         exact to="/resume/VR040.pdf"
@@ -68,13 +108,16 @@ const NavBar = (props) => {
                         Resume
                     </NavLink>
 
-                    <NavLink
-                        exact to="/deets"
-                        className="px-3 nav-link"
-                        activeClassName="active"
-                        onClick={() => setExpanded(false)}>
-                        <i className="fas fa-lock"></i>
-                    </NavLink>
+                    {accountInfo.token &&
+                        <NavLink
+                            exact to="/"
+                            className="px-3 nav-link"
+                            activeClassName="active"
+                            onClick={handleLogout}>
+                            <i className="fas fa-lock"></i>
+                        </NavLink>
+                    }
+
                 </Nav>
             </Navbar.Collapse>
         </Navbar >
