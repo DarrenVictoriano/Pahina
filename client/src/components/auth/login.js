@@ -3,6 +3,9 @@ import './login.css';
 import { PostContext } from '../../providers/postContext';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import axios from 'axios';
+import { useCookies } from 'react-cookie';
+import { useHistory } from 'react-router-dom';
 
 const Login = () => {
 
@@ -12,13 +15,31 @@ const Login = () => {
     const [isError, setIsError] = useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [cookies, setCookie, removeCookie] = useCookies(['token']);
+    let history = useHistory();
 
     const handleLogin = (event) => {
-
+        // check empty fields
         if (!username || !password) {
             setIsError(true);
         }
 
+        // construct data before passing to API
+        const data = {
+            "username": username,
+            "password": password
+        }
+
+        // login API
+        axios.post("/api/v1/user/auth", data)
+            .then(accountInfo => {
+                // save token in cookie
+                setCookie('token', accountInfo.data.token, { path: '/' });
+                history.push("/postform");
+            })
+            .catch(err => {
+                setIsError(true);
+            })
     };
 
 
@@ -28,7 +49,7 @@ const Login = () => {
         <div className={"container text-slate " + (isMobile ? "mt-8" : "mt-10")}>
             <div className="text-center">
                 <h1>Are you Darren?</h1>
-                <Form noValidate className="form-group mx-auto mt-5">
+                <Form noValidate className="form-login mx-auto mt-5">
                     <Form.Group controlId="userGroup">
                         <Form.Control
                             type="text"
