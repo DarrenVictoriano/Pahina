@@ -4,14 +4,18 @@ import Nav from 'react-bootstrap/Nav';
 import Typewriter from 'typewriter-effect';
 import './navbar.css';
 import { PostContext } from '../../providers/postContext';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 const NavBar = (props) => {
 
     const [expanded, setExpanded] = useState(false);
     const { mobileCheckState, accountInfoState } = useContext(PostContext);
     const isMobile = mobileCheckState;
-    const [accountInfo, setAccountInfo] = accountInfoState;
+
+    const [cookies, setCookie, removeCookie] = useCookies(['token']);
+    let history = useHistory();
+
 
     // TODO: componentDidMount hook
     useEffect(() => {
@@ -20,18 +24,8 @@ const NavBar = (props) => {
 
     const handleLogout = () => {
         // reset to defaul value so we logout
-        setAccountInfo({
-            "token": "",
-            "_id": "",
-            "username": "",
-            "posts": [{
-                "_id": "",
-                "title": "",
-                "overview": "",
-                "body": "",
-                "date_created": ""
-            }]
-        });
+        removeCookie('token', { path: '/' });
+        history.push("/");
 
         // this is for mobile view
         setExpanded(false);
@@ -90,7 +84,7 @@ const NavBar = (props) => {
                         Blog
                     </NavLink>
 
-                    {accountInfo.token &&
+                    {cookies.token &&
                         <NavLink
                             exact to="/postform"
                             className="px-3 nav-link"
@@ -108,7 +102,7 @@ const NavBar = (props) => {
                         Resume
                     </NavLink>
 
-                    {accountInfo.token &&
+                    {cookies.token &&
                         <NavLink
                             exact to="/"
                             className="px-3 nav-link"
