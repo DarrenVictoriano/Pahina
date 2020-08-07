@@ -17,7 +17,7 @@ const PostForm = (props) => {
         <div className={"container-fluid " + (isMobile ? "mt-8" : "mt-10")}>
             <div className="row">
                 <div className="col-lg-6">
-                    <Form className="text-left">
+                    <Form>
                         <Form.Group controlId="postFormTitle">
                             <Form.Label>Title</Form.Label>
                             <Form.Control
