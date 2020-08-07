@@ -90,7 +90,7 @@ module.exports = {
 
             // then send the data back along with the token
             res.status(200).json({
-                "token:": token,
+                "token": token,
                 "_id": userInfo._id,
                 "username": userInfo.username,
                 "posts": userInfo.posts
