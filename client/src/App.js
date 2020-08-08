@@ -27,7 +27,7 @@ function App() {
           <Route exact={true} path="/" component={Home} />
           <Route exact={true} path="/portfolio" component={Portfolio} />
           <Route exact={true} path="/deets" component={cookies.token ? PostForm : Login} />
-          <Route exact={false} path="/deets/:id" component={cookies.token ? PostForm : Login} />
+          <Route exact={false} path="/deets/:id" component={cookies.token ? PostForm : PageNotFound} />
           <Route exact={true} path="/blog" component={PostPage} />
           <Route exact={false} path="/blog/:id" component={PostBody} />
 
