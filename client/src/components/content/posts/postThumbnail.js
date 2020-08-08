@@ -5,6 +5,8 @@ import Moment from 'react-moment';
 import Button from 'react-bootstrap/Button';
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
+import ReactMarkdown from 'react-markdown';
+import CodeBlock from './codeBlock';
 
 const PostThumbnail = ({ id, title, overview, date }) => {
 
@@ -56,7 +58,12 @@ const PostThumbnail = ({ id, title, overview, date }) => {
                 <div className="col-lg-11">
                     <h1 className={"text-slate-lighter mb-0"}>{title}</h1>
                     <p className={"text-slate-light"}><Moment format="MMMM DD, YYYY" date={date} /></p>
-                    <p className={"text-slate-light"}>{overview}</p> {/* MAKETH THOU MARKDOWN!! */}
+                    <div className={"text-slate-light"}>
+                        <ReactMarkdown
+                            source={overview + "..."}
+                            renderers={{ code: CodeBlock }}
+                        />
+                    </div>
                     <Link exact to={"/blog/" + id} className={"read-article text-slate-lighter "}>Read Article</Link>
                 </div>
                 {
