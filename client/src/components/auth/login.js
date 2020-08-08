@@ -32,8 +32,12 @@ const Login = () => {
             "password": password
         }
 
-        // login API
-        axios.post("/api/v1/user/auth", data)
+        // first encyrpt payload
+        axios.post("/api/v1/user/crypto", data)
+            .then(encryptedData => {
+                // return axios call with the encrpted payload
+                return axios.post("/api/v1/user/auth", encryptedData.data)
+            })
             .then(accountInfo => {
                 // save token in cookie
                 setCookie('token', accountInfo.data.token, { path: '/' });
