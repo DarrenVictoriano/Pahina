@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Typewriter from 'typewriter-effect';
@@ -10,21 +10,17 @@ import { useCookies } from 'react-cookie';
 const NavBar = (props) => {
 
     const [expanded, setExpanded] = useState(false);
-    const { mobileCheckState, accountInfoState } = useContext(PostContext);
+    const { mobileCheckState, userIDState } = useContext(PostContext);
     const isMobile = mobileCheckState;
+    const [userID, setUserID] = userIDState;
 
     const [cookies, setCookie, removeCookie] = useCookies(['token']);
     let history = useHistory();
 
-
-    // TODO: componentDidMount hook
-    useEffect(() => {
-
-    });
-
     const handleLogout = () => {
         // reset to defaul value so we logout
         removeCookie('token', { path: '/' });
+        setUserID("");
         history.push("/");
 
         // this is for mobile view
@@ -84,16 +80,6 @@ const NavBar = (props) => {
                         Blog
                     </NavLink>
 
-                    {cookies.token &&
-                        <NavLink
-                            exact to="/postform"
-                            className="px-3 nav-link"
-                            activeClassName="active"
-                            onClick={() => setExpanded(false)}>
-                            Post Form
-                        </NavLink>
-                    }
-
                     <NavLink
                         exact to="/resume/VR040.pdf"
                         className="px-3 nav-link"
@@ -104,7 +90,7 @@ const NavBar = (props) => {
 
                     {cookies.token &&
                         <NavLink
-                            exact to="/"
+                            exact to="/logout"
                             className="px-3 nav-link"
                             activeClassName="active"
                             onClick={handleLogout}>
