@@ -1,17 +1,83 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { PostContext } from '../../../providers/postContext';
 import './postStyles.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import ReactMarkdown from 'react-markdown';
+import axios from 'axios';
+import { useParams, useHistory } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 const PostForm = (props) => {
 
-    const { mobileCheckState } = useContext(PostContext);
+    const { mobileCheckState, userIDState } = useContext(PostContext);
     const isMobile = mobileCheckState;
+    const [cookies] = useCookies(['token', 'userID']);
+    const [userID, setUserID] = userIDState;
 
     const [markdownTitle, setMarkdownTitle] = useState("");
     const [markdownBody, setMarkDownBody] = useState("");
+
+    let history = useHistory();
+
+    // get the ID from the URL
+    const { id } = useParams();
+
+    useEffect(() => {
+        if (id) {
+            // get one post
+            axios.get("/api/v1/post/" + id)
+                .then(item => {
+                    setMarkdownTitle(item.data.title);
+                    setMarkDownBody(item.data.body);
+                })
+                .catch(err => {
+                    setMarkdownTitle("");
+                    setMarkDownBody("");
+                })
+        }
+    }, []);
+
+    const handlePublish = (event) => {
+        event.preventDefault();
+
+        // build data
+        let data = {
+            "_id": userID,
+            "title": markdownTitle,
+            "overview": markdownBody.length > 100 ? markdownBody.slice(0, 200) : markdownBody,
+            "body": markdownBody
+        }
+
+        // build header
+        let headerConfig = {
+            "headers": {
+                "x-header-token": cookies.token
+            }
+        }
+
+        if (id) {
+            // do some edits
+            axios.put("/api/v1/post/" + id, data, headerConfig)
+                .then(updatedItem => {
+                    // view the article
+                    history.push("/blog/" + id);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        } else {
+            // save as new
+            axios.post("/api/v1/post", data, headerConfig)
+                .then(itemPosted => {
+                    // then view the article
+                    history.push("/blog/" + itemPosted.data._id);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+    }
 
     return (
         <div className={"container-fluid " + (isMobile ? "mt-8" : "mt-10")}>
@@ -36,7 +102,7 @@ const PostForm = (props) => {
                                 onChange={e => setMarkDownBody(e.target.value)} />
                         </Form.Group>
                         <Form.Group className="text-center" controlId="formBasicSubmit">
-                            <Button variant="info" type="submit">
+                            <Button onClick={handlePublish} variant="info">
                                 Publish
                             </Button>
                         </Form.Group>
