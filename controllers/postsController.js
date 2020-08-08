@@ -10,9 +10,9 @@ module.exports = {
     addPost: async function (req, res, next) {
         try {
             // get posted data
-            const { _id, title, overview, body } = req.body;
+            const { title, overview, body } = req.body;
 
-            if (!_id || !title || !overview || !body) {
+            if (!title || !overview || !body) {
                 return next(new AppError("Fill All Fields", 400));
             }
 
@@ -21,13 +21,6 @@ module.exports = {
 
             // save the newPost into the Post DB
             let savedPost = await newPost.save();
-
-            // then add that item to the accounts that currently signin
-            let accountInfo = await Account.findOneAndUpdate(
-                { _id },
-                { $push: { posts: savedPost._id } },
-                { new: true }
-            ).populate("posts");
 
             res.status(200).json({
                 "message": "success",
