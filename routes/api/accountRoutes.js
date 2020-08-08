@@ -16,6 +16,11 @@ router.route("/")
 router.route("/auth")
     .post(accountController.authenticateUser);
 
+// @route       api/v1/user/crypto
+// @desc-POST   Encrypt Payload
+router.route("/crypto")
+    .post(accountController.encryptPayload);
+
 
 router.route("/:id")
     // @route       api/v1/user/_id
