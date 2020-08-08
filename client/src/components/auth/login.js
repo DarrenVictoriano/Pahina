@@ -9,14 +9,13 @@ import { useHistory } from 'react-router-dom';
 
 const Login = () => {
 
-    const { mobileCheckState, userIDState } = useContext(PostContext);
+    const { mobileCheckState } = useContext(PostContext);
     const isMobile = mobileCheckState;
 
     const [isError, setIsError] = useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [cookies, setCookie] = useCookies(['token', 'userID']);
-    const [userID, setUserID] = userIDState;
     let history = useHistory();
 
     const handleLogin = (event) => {
@@ -41,7 +40,6 @@ const Login = () => {
             .then(accountInfo => {
                 // save token in cookie
                 setCookie('token', accountInfo.data.token, { path: '/' });
-                setUserID(accountInfo.data._id);
                 history.push("/deets");
             })
             .catch(err => {
