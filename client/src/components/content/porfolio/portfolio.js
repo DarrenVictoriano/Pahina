@@ -9,6 +9,7 @@ const Portfolio = () => {
 
     const projects = [
         {
+            "id": "001",
             "src": "/portfolio/atvaudit-500x350.png",
             "title": "atvAudit",
             "body": "A fullstack web application that scans an Android device for all the packages currently installed in it and will highlight the application/s that had an update compared to the last time the atvAuto last scanned the same device device.",
@@ -16,6 +17,7 @@ const Portfolio = () => {
             "link": "#"
         },
         {
+            "id": "002",
             "src": "/portfolio/atvauto-500x350.png",
             "title": "atvAuto",
             "body": "This is an AndroidTV automation framework, mostly used to stress test an Android TV. This tool uses Android Debug Shell (ADB) through IP to control the device.",
@@ -23,6 +25,7 @@ const Portfolio = () => {
             "link": "#"
         },
         {
+            "id": "003",
             "src": "/portfolio/maddpass-500x350.png",
             "title": "madPass",
             "body": "A fullstack web password manager, it uses AES (Advanced Encryption System) algorithm with a 256-bit encryption key to encrypt all the data and hashes the master password.",
@@ -30,6 +33,7 @@ const Portfolio = () => {
             "link": "#"
         },
         {
+            "id": "004",
             "src": "/portfolio/trivia-500x350.png",
             "title": "Trivia Game",
             "body": "",
@@ -37,6 +41,7 @@ const Portfolio = () => {
             "link": "#"
         },
         {
+            "id": "005",
             "src": "/portfolio/word-500x350.png",
             "title": "Word Guess Game",
             "body": "",
@@ -44,6 +49,7 @@ const Portfolio = () => {
             "link": "#"
         },
         {
+            "id": "006",
             "src": "/portfolio/scrape-500x350.png",
             "title": "Article Scraper",
             "body": "",
@@ -56,7 +62,7 @@ const Portfolio = () => {
 
         if (pos === "left") {
             return (
-                <div className={"row mb-7 " + (isMobile ? " " : "mx-5")}>
+                <div key={project.id} id={project.id} className={"row mb-7 " + (isMobile ? " " : "mx-5")}>
                     <div className="col-lg-6">
                         <div className={(isMobile ? "text-center" : "text-right")}>
                             <img alt={project.title} src={project.src} className="img-fluid rounded" />
@@ -85,7 +91,7 @@ const Portfolio = () => {
             );
         } else {
             return (
-                <div className={"row mb-7 " + (isMobile ? " " : "mx-5")}>
+                <div key={project.id} id={project.id} className={"row mb-7 " + (isMobile ? " " : "mx-5")}>
                     <div className="col-lg-6">
                         <div className={"text-right " + (isMobile ? "pt-3 " : "mt-5 pt-3 pl-5")}>
                             <h3 className="text-slate-lightest">{project.title}</h3>
