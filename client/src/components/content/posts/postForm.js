@@ -7,13 +7,14 @@ import ReactMarkdown from 'react-markdown';
 import axios from 'axios';
 import { useParams, useHistory } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import CodeBlock from './codeBlock';
+import TextareaAutosize from 'react-textarea-autosize';
 
 const PostForm = (props) => {
 
-    const { mobileCheckState, userIDState } = useContext(PostContext);
+    const { mobileCheckState } = useContext(PostContext);
     const isMobile = mobileCheckState;
     const [cookies] = useCookies(['token', 'userID']);
-    const [userID, setUserID] = userIDState;
 
     const [markdownTitle, setMarkdownTitle] = useState("");
     const [markdownBody, setMarkDownBody] = useState("");
@@ -91,16 +92,19 @@ const PostForm = (props) => {
                                 type="text"
                                 placeholder="Enter title"
                                 value={markdownTitle}
-                                onChange={e => setMarkdownTitle(e.target.value)} />
+                                onChange={e => setMarkdownTitle(e.target.value)}
+                            />
                         </Form.Group>
 
                         <Form.Group controlId="formBasicBody">
                             <Form.Label>Body</Form.Label>
-                            <Form.Control
-                                as="textarea" rows="40"
-                                placeholder="Markdown body..."
+                            <TextareaAutosize
+                                className="form-control"
+                                placeholder="Mardown body..."
+                                minRows="40"
                                 value={markdownBody}
-                                onChange={e => setMarkDownBody(e.target.value)} />
+                                onChange={e => setMarkDownBody(e.target.value)}
+                            />
                         </Form.Group>
                         <Form.Group className="text-center" controlId="formBasicSubmit">
                             {
@@ -115,10 +119,14 @@ const PostForm = (props) => {
 
                     </Form>
                 </div>
-                <div className="col-lg-6">
-                    <p className="mb-0">Preview</p>
-                    <h1 className="mb-4">{markdownTitle}</h1>
-                    <ReactMarkdown source={markdownBody} />
+                <div className={"col-lg-6 "}>
+                    <div className="p-1">
+                        <h1 className="mb-4">{markdownTitle}</h1>
+                        <ReactMarkdown
+                            source={markdownBody}
+                            renderers={{ code: CodeBlock }}
+                        />
+                    </div>
                 </div>
             </div>
 
