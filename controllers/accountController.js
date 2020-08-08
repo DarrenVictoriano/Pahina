@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Account = require('../models/accountModel');
 const AppError = require('../middleware/AppError');
+const crypto = require('../middleware/cryptoBit');
 
 module.exports = {
     // ***********************************************************************************************
@@ -11,15 +12,20 @@ module.exports = {
     registerAccount: async function (req, res, next) {
         try {
             // get posted data
-            const { username, password } = req.body;
+            const { secret, username, password } = req.body;
 
             // check if data exists if not throw an error
-            if (!username || !password) {
+            if (!secret || !username || !password) {
                 return next(new AppError("Fill All Fields", 400));
             }
 
+            // verify secret
+            if (secret !== process.env.JWT_SECRET) {
+                return next(new AppError("You are unauthorized to create an accout", 400));
+            }
+
             // look for username in the database
-            let user = await Account.findOne({ username }).populate("posts").select("-password");
+            let user = await Account.findOne({ username }).select("-password");
 
             // if user is already exists then throw an error
             if (user) {
@@ -45,8 +51,7 @@ module.exports = {
             res.status(200).json({
                 "token": token,
                 "_id": savedUser._id,
-                "username": savedUser.username,
-                "posts": savedUser.posts
+                "username": savedUser.username
             });
         } catch (err) {
             next(err);
@@ -58,7 +63,8 @@ module.exports = {
     authenticateUser: async function (req, res, next) {
         try {
             // get posted data
-            const { username, password } = req.body;
+            const username = crypto.decrypt(req.body.username);
+            const password = crypto.decrypt(req.body.password);
 
             // check if all fields are filled
             if (!username || !password) {
@@ -66,7 +72,7 @@ module.exports = {
             }
 
             // look in the database for the specified username
-            let userInfo = await Account.findOne({ username }).populate("posts");
+            let userInfo = await Account.findOne({ "username": username });
 
             // if not found then send error
             if (!userInfo) {
@@ -92,8 +98,7 @@ module.exports = {
             res.status(200).json({
                 "token": token,
                 "_id": userInfo._id,
-                "username": userInfo.username,
-                "posts": userInfo.posts
+                "username": userInfo.username
             });
         } catch (err) {
             next(err);
@@ -116,7 +121,7 @@ module.exports = {
     // ***********************************************************************************************
     readAllDevOnly: async function (req, res, next) {
         try {
-            let allAccount = await Account.find().populate("posts");
+            let allAccount = await Account.find();
             res.status(200).json(allAccount);
         } catch (err) {
             next(err);
@@ -127,8 +132,29 @@ module.exports = {
     // ***********************************************************************************************
     getAccountInfo: async function (req, res, next) {
         try {
-            let accountInfo = await Account.findById({ "_id": req.params.id }).populate("posts");
+            let accountInfo = await Account.findById({ "_id": req.params.id });
             res.status(200).json(accountInfo);
+        } catch (err) {
+            next(err);
+        }
+    },
+    // ***********************************************************************************************
+    // ************************************** Encrypt Payload ****************************************
+    // ***********************************************************************************************
+    encryptPayload: function (req, res, next) {
+        try {
+            // get posted data
+            const { username, password } = req.body;
+
+            // check if all fields are filled
+            if (!username || !password) {
+                return next(new AppError("Fill All Fields.", 400));
+            }
+
+            res.status(200).json({
+                "username": crypto.encrypt(username),
+                "password": crypto.encrypt(password)
+            })
         } catch (err) {
             next(err);
         }
