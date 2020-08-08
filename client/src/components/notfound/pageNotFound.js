@@ -11,7 +11,7 @@ const PageNotFound = () => {
         <div className="container">
             <div className={"container text-center " + (isMobile ? "mt-100-mb" : "mt-100")}>
                 <h1>such empty</h1>
-                <h1>🥺</h1>
+                <h1><span role="img" aria-label="sad">🥺</span></h1>
             </div>
         </div>
     );
