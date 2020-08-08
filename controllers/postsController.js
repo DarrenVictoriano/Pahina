@@ -29,7 +29,10 @@ module.exports = {
                 { new: true }
             ).populate("posts");
 
-            res.status(200).json(accountInfo);
+            res.status(200).json({
+                "message": "success",
+                "_id": savedPost._id
+            });
 
         } catch (err) {
             next(err);
