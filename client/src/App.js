@@ -3,9 +3,8 @@ import './App.css';
 import NavBar from './components/navbar/navbar';
 import Helmet from 'react-helmet';
 import Home from './components/content/home/home';
-import { PostProvider } from './providers/postContext';
 import Portfolio from './components/content/porfolio/portfolio';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import PostPage from './components/content/posts/postPage';
 import PostBody from './components/content/posts/postBody';
 import PostForm from './components/content/posts/postForm';
@@ -18,27 +17,27 @@ function App() {
   const [cookies] = useCookies(['token']);
 
   return (
-    <PostProvider>
-      <Router>
-        <div className="App container-fluid px-0">
+    <Router>
+      <div className="App container-fluid px-0">
 
-          <Helmet bodyAttributes={{ style: 'background-color : #0a192f' }} />
-          <NavBar />
+        <Helmet bodyAttributes={{ style: 'background-color : #0a192f' }} />
+        <NavBar />
 
-          <Switch> {/* switch should only contain routes and no other elements, otherwise it wont work correctly */}
-            <Route exact path="/" component={Home} />
-            <Route exact path="/portfolio" component={Portfolio} />
-            <Route exact path="/postform" component={cookies.token ? PostForm : PageNotFound} />
-            <Route exact path="/deets" component={Login} />
-            <Route exact path="/blog" component={PostPage} />
-            <Route path="/blog/:id" component={PostBody} />
+        <Switch> {/* switch should only contain routes and no other elements, otherwise it wont work correctly */}
+          <Route exact={true} path="/" component={Home} />
+          <Route exact={true} path="/portfolio" component={Portfolio} />
+          <Route exact={true} path="/deets" component={cookies.token ? PostForm : Login} />
+          <Route exact={false} path="/deets/:id" component={cookies.token ? PostForm : Login} />
+          <Route exact={true} path="/blog" component={PostPage} />
+          <Route exact={false} path="/blog/:id" component={PostBody} />
 
-            <Route component={PageNotFound} />
-          </Switch>
+          <Redirect from="/logout" to="/" />
 
-        </div>
-      </Router>
-    </PostProvider>
+          <Route component={PageNotFound} />
+        </Switch>
+
+      </div>
+    </Router>
   );
 }
 
