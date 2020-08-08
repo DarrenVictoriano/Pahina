@@ -9,16 +9,18 @@ import { useHistory } from 'react-router-dom';
 
 const Login = () => {
 
-    const { mobileCheckState } = useContext(PostContext);
+    const { mobileCheckState, userIDState } = useContext(PostContext);
     const isMobile = mobileCheckState;
 
     const [isError, setIsError] = useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [cookies, setCookie, removeCookie] = useCookies(['token']);
+    const [cookies, setCookie] = useCookies(['token', 'userID']);
+    const [userID, setUserID] = userIDState;
     let history = useHistory();
 
     const handleLogin = (event) => {
+        event.preventDefault();
         // check empty fields
         if (!username || !password) {
             setIsError(true);
@@ -35,15 +37,20 @@ const Login = () => {
             .then(accountInfo => {
                 // save token in cookie
                 setCookie('token', accountInfo.data.token, { path: '/' });
-                history.push("/postform");
+                setUserID(accountInfo.data._id);
+                history.push("/deets");
             })
             .catch(err => {
+                setUsername("");
+                setPassword("");
                 setIsError(true);
             })
     };
 
-
-    // localStorage.setItem('token', token);
+    const handleNope = (event) => {
+        event.preventDefault();
+        history.push("/");
+    }
 
     return (
         <div className={"container text-slate " + (isMobile ? "mt-8" : "mt-10")}>
@@ -75,8 +82,8 @@ const Login = () => {
                         <Button onClick={handleLogin} variant="primary" className="mx-2 btn-sizer btn-sm">
                             Yes
                         </Button>
-                        <Button variant="primary" className="mx-2 btn-sizer btn-sm" >
-                            No
+                        <Button onClick={handleNope} variant="primary" className="mx-2 btn-sizer btn-sm" >
+                            Nope
                         </Button>
                     </Form.Group>
 
