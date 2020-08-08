@@ -10,9 +10,8 @@ import { useCookies } from 'react-cookie';
 const NavBar = (props) => {
 
     const [expanded, setExpanded] = useState(false);
-    const { mobileCheckState, userIDState } = useContext(PostContext);
+    const { mobileCheckState } = useContext(PostContext);
     const isMobile = mobileCheckState;
-    const [userID, setUserID] = userIDState;
 
     const [cookies, setCookie, removeCookie] = useCookies(['token']);
     let history = useHistory();
@@ -20,7 +19,6 @@ const NavBar = (props) => {
     const handleLogout = () => {
         // reset to defaul value so we logout
         removeCookie('token', { path: '/' });
-        setUserID("");
         history.push("/");
 
         // this is for mobile view
