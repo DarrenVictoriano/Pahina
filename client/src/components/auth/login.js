@@ -81,7 +81,7 @@ const Login = () => {
                 <div className="text-center">
                     <h1>Are you Darren?</h1>
                     {
-                        isLoading ? <Spinner animation="border" className="text-green" style={{ width: '10rem', height: '10rem' }} />
+                        isLoading ? <Spinner animation="border" className="text-green mt-5" style={{ width: '10rem', height: '10rem' }} />
                             : <Form noValidate className="form-login mx-auto mt-5">
                                 <Form.Group controlId="userGroup">
                                     <Form.Control
