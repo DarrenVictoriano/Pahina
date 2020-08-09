@@ -57,7 +57,7 @@ const Portfolio = () => {
             "title": "Article Scraper",
             "body": "Simple web scraping web app that utilize NodeJS's Cheerio framework to scrape data from the web. Mongoose Framework to create a model for the data that was scraped as well as saving it to MongoDB.",
             "stacks": ["Node.js", "Express", "MongoDB", "Cheerio"],
-            "link": "https://warm-oasis-19765.herokuapp.com/"
+            "link": "https://article-scrapers.herokuapp.com/"
         }
     ];
 
