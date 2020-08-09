@@ -25,6 +25,10 @@ const Login = () => {
 
     const handleLogin = (event) => {
         event.preventDefault();
+
+        // set loading
+        setIsLoading(true);
+
         // check empty fields
         if (!username || !password) {
             setIsError(true);
@@ -43,6 +47,9 @@ const Login = () => {
                 return axios.post("/api/v1/user/auth", encryptedData.data)
             })
             .then(accountInfo => {
+                // set loading back to false
+                setIsLoading(false);
+
                 // save token in cookie
                 setCookie('token', accountInfo.data.token, { path: '/' });
                 history.push("/deets");
@@ -50,8 +57,12 @@ const Login = () => {
             .catch(err => {
                 setUsername("");
                 setPassword("");
+                // set loading back to false
+                setIsLoading(false);
+                // set Error
                 setIsError(true);
             })
+
     };
 
     const handleNope = (event) => {
