@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { PostContext } from '../../../providers/postContext';
 import './portfolio.css';
+import '../../../App.css';
 
 const Portfolio = () => {
 
@@ -71,7 +72,7 @@ const Portfolio = () => {
 
                     <div className="col-lg-6">
                         <div className={"text-left " + (isMobile ? "pt-3 " : "mt-5 pt-3 pr-5")}>
-                            <h3 className="text-slate-lightest">{project.title}</h3>
+                            <h3 className="text-slate-lighter">{project.title}</h3>
                             <p>{project.body + " "}
                                 <a className="learn-more" target="_blank" rel="noopener noreferrer" href={project.link}>
                                     <span>Learn More</span>
@@ -94,7 +95,7 @@ const Portfolio = () => {
                 <div key={project.id} id={project.id} className={"row mb-7 " + (isMobile ? " " : "mx-5")}>
                     <div className="col-lg-6">
                         <div className={"text-right " + (isMobile ? "pt-3 " : "mt-5 pt-3 pl-5")}>
-                            <h3 className="text-slate-lightest">{project.title}</h3>
+                            <h3 className="text-slate-lighter">{project.title}</h3>
                             <p>{project.body + " "}
                                 <a className="learn-more" target="_blank" rel="noopener noreferrer" href={project.link}>
                                     <span>Learn More</span>

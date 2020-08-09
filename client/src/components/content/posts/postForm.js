@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { PostContext } from '../../../providers/postContext';
 import './postStyles.css';
+import '../../../App.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import ReactMarkdown from 'react-markdown';
@@ -50,6 +51,9 @@ const PostForm = (props) => {
                     setMarkdownTitle("");
                     setMarkDownBody("");
                 })
+        } else {
+            setMarkdownTitle("");
+            setMarkDownBody("");
         }
     }, []);
 

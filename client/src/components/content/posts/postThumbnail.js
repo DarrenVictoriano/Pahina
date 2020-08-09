@@ -7,6 +7,7 @@ import { useCookies } from 'react-cookie';
 import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
 import CodeBlock from './codeBlock';
+import '../../../App.css';
 
 const PostThumbnail = ({ id, title, overview, date }) => {
 
@@ -57,14 +58,14 @@ const PostThumbnail = ({ id, title, overview, date }) => {
             <div className="row">
                 <div className="col-lg-11">
                     <h1 className={"text-slate-lighter mb-0"}>{title}</h1>
-                    <p className={"text-slate-light"}><Moment format="MMMM DD, YYYY" date={date} /></p>
-                    <div className={"text-slate-light"}>
+                    <p className={"text-slate"}><Moment format="MMMM DD, YYYY" date={date} /></p>
+                    <div className={"text-slate"}>
                         <ReactMarkdown
                             source={overview + "..."}
                             renderers={{ code: CodeBlock }}
                         />
                     </div>
-                    <Link exact to={"/blog/" + id} className={"read-article text-slate-lighter "}>Read Article</Link>
+                    <Link exact to={"/blog/" + id} className={"read-article font-weight-bold text-green "}>Read Article</Link>
                 </div>
                 {
                     cookies.token && <div className={"col-lg-1 " + (isMobile ? "mt-2" : "")}>

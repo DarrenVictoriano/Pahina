@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { PostContext } from '../../../providers/postContext';
 import './postStyles.css';
+import '../../../App.css';
 import PostThumbnail from './postThumbnail';
 import axios from 'axios';
 

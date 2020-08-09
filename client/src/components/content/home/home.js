@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { PostContext } from '../../../providers/postContext';
 import './home.css';
+import '../../../App.css';
 
 const Home = () => {
 
@@ -9,7 +10,7 @@ const Home = () => {
 
     return (
         <div className={"text-center " + (isMobile ? "home-content-mb" : "home-content")}>
-            <p className={"text-slate-lightest mb-0 p-0 " + (isMobile ? "home-content-title-mb" : "home-content-title")}>
+            <p className={"text-slate-lighter mb-0 p-0 " + (isMobile ? "home-content-title-mb" : "home-content-title")}>
                 Software Engineer
         </p>
             <hr className={(isMobile ? "title-hr-mb" : "title-hr")} />
