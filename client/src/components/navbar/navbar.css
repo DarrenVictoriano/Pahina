@@ -1,0 +1,49 @@
+.bg-navy {
+    background-color: #0a192f;
+}
+
+.text-green {
+    color: #64ffda;
+}
+
+.text-slate-lightest {
+    color: #ccd6f6;
+}
+
+.text-slate {
+    color: #8892b0;
+}
+
+.brand-name {
+    min-width: 105px;
+}
+
+.brand-link:hover {
+    text-decoration: none;
+}
+
+.brand-h1 {
+    font-size: 30px;
+    color: #64ffda;
+}
+
+.brand-h1:hover {
+    color: #ccd6f6;
+}
+
+.nav-link {
+    color: #8892b0;
+}
+
+.nav-link:hover {
+    text-decoration: none;
+    color: #64ffda;
+}
+
+.test {
+    color: red;
+}
+
+.active {
+    color: #64ffda;
+}

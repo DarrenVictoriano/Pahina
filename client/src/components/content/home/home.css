@@ -1,0 +1,104 @@
+
+.home-content {
+    color: #9a9da0;
+    margin-top: 35vh;
+}
+
+.home-content-mb {
+    color: #9a9da0;
+    margin-top: 30vh;
+}
+
+.home-content-title {
+    font-size: 80px;
+}
+
+.home-content-title-mb {
+    font-size: 40px;
+}
+
+.home-content-desc-mb {
+    font-size: 14px;
+}
+
+.media-icons a {
+    padding-left: 15px;
+    padding-right: 15px;
+    color: #8892b0;
+}
+
+.media-icons a:hover {
+color: #64ffda;
+}
+
+.title-hr {
+    margin-top: 0px;
+    border-width: 2px;
+    border-color: #8892b0;
+    width: 55%;
+}
+
+.title-hr-mb {
+    margin-top: 0px;
+    border-width: 2px;
+    border-color: #474e56;
+    width: 90%;
+}
+
+.text-slate-lightest {
+    color: #ccd6f6;
+}
+
+.text-slate {
+    color: #8892b0;
+}
+
+
+/* enter */
+.fade-enter {
+  opacity: 0;
+  z-index: 1;
+}
+.fade-enter.fade-enter-active {
+    opacity: 1;
+    transition: opacity 5000ms linear 5000ms;
+}
+
+/* exit */
+.fade-exit {
+    opacity: 1;
+}
+.fade-exit.fade-exit-active {
+    opacity: 0;
+    transition: opacity 5000ms linear;
+}
+.fade-exit-done {
+  opacity: 0;
+}
+
+/* slide enter */
+.slide-enter {
+  opacity: 0;
+  transform: scale(0.97) translateY(5px);
+  z-index: 1;
+}
+.slide-enter.slide-enter-active {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    transition: opacity 3000ms linear 1000ms, transform 3000ms ease-in-out 1000ms;
+}
+
+/* slide exit */
+.slide-exit {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+
+}
+.slide-exit.slide-exit-active {
+    opacity: 0;
+    transform: scale(0.97) translateY(5px);
+    transition: opacity 1500ms linear, transform 1500ms ease-out;
+}
+.slide-exit-done {
+  opacity: 0;
+}
