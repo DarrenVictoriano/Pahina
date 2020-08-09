@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { PostContext } from '../../../providers/postContext';
 import './postStyles.css';
+import '../../../App.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import ReactMarkdown from 'react-markdown';
@@ -9,10 +10,13 @@ import { useParams, useHistory } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import CodeBlock from './codeBlock';
 import TextareaAutosize from 'react-textarea-autosize';
+import { CSSTransition } from 'react-transition-group';
 
 const PostForm = (props) => {
 
-    const { mobileCheckState } = useContext(PostContext);
+    const { mobileCheckState, appearState } = useContext(PostContext);
+    const [appear] = appearState;
+
     const isMobile = mobileCheckState;
     const [cookies] = useCookies(['token', 'userID']);
 
@@ -50,6 +54,9 @@ const PostForm = (props) => {
                     setMarkdownTitle("");
                     setMarkDownBody("");
                 })
+        } else {
+            setMarkdownTitle("");
+            setMarkDownBody("");
         }
     }, []);
 
@@ -83,53 +90,59 @@ const PostForm = (props) => {
 
     return (
         <div className={"container-fluid " + (isMobile ? "mt-8" : "mt-10")}>
-            <div className="row">
-                <div className="col-lg-6">
-                    <Form>
-                        <Form.Group controlId="postFormTitle">
-                            <Form.Label>Title</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Enter title"
-                                value={markdownTitle}
-                                onChange={e => setMarkdownTitle(e.target.value)}
-                            />
-                        </Form.Group>
+            <CSSTransition
+                in={appear}
+                appear={true}
+                timeout={1000}
+                classNames="fade"
+            >
+                <div className="row">
+                    <div className="col-lg-6">
+                        <Form>
+                            <Form.Group controlId="postFormTitle">
+                                <Form.Label>Title</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    placeholder="Enter title"
+                                    value={markdownTitle}
+                                    onChange={e => setMarkdownTitle(e.target.value)}
+                                />
+                            </Form.Group>
 
-                        <Form.Group controlId="formBasicBody">
-                            <Form.Label>Body</Form.Label>
-                            <TextareaAutosize
-                                className="form-control"
-                                placeholder="Mardown body..."
-                                minRows="40"
-                                value={markdownBody}
-                                onChange={e => setMarkDownBody(e.target.value)}
-                            />
-                        </Form.Group>
-                        <Form.Group className="text-center" controlId="formBasicSubmit">
-                            {
-                                id ? <Button onClick={handleUpdate} variant="info">
-                                    Update
+                            <Form.Group controlId="formBasicBody">
+                                <Form.Label>Body</Form.Label>
+                                <TextareaAutosize
+                                    className="form-control"
+                                    placeholder="Mardown body..."
+                                    minRows="40"
+                                    value={markdownBody}
+                                    onChange={e => setMarkDownBody(e.target.value)}
+                                />
+                            </Form.Group>
+                            <Form.Group className="text-center" controlId="formBasicSubmit">
+                                {
+                                    id ? <Button onClick={handleUpdate} variant="info">
+                                        Update
                                     </Button>
-                                    : <Button onClick={handlePublish} variant="info">
-                                        Publish
+                                        : <Button onClick={handlePublish} variant="info">
+                                            Publish
                                     </Button>
-                            }
-                        </Form.Group>
+                                }
+                            </Form.Group>
 
-                    </Form>
-                </div>
-                <div className={"col-lg-6 "}>
-                    <div className="p-1">
-                        <h1 className="mb-4">{markdownTitle}</h1>
-                        <ReactMarkdown
-                            source={markdownBody}
-                            renderers={{ code: CodeBlock }}
-                        />
+                        </Form>
+                    </div>
+                    <div className={"col-lg-6 "}>
+                        <div className="p-1">
+                            <h1 className="mb-4">{markdownTitle}</h1>
+                            <ReactMarkdown
+                                source={markdownBody}
+                                renderers={{ code: CodeBlock }}
+                            />
+                        </div>
                     </div>
                 </div>
-            </div>
-
+            </CSSTransition>
         </div>
     );
 }

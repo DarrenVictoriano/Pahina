@@ -1,18 +1,21 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { PostContext } from '../../../providers/postContext';
 import './postStyles.css';
+import '../../../App.css';
 import { useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import Moment from 'react-moment';
 import axios from 'axios';
 import CodeBlock from './codeBlock';
+import { CSSTransition } from 'react-transition-group';
 
 const PostBody = (props) => {
 
     // get the ID from the URL
     const { id } = useParams();
 
-    const { mobileCheckState } = useContext(PostContext);
+    const { mobileCheckState, appearState } = useContext(PostContext);
+    const [appear] = appearState;
     const [post, setPost] = useState({});
 
     const isMobile = mobileCheckState;
@@ -30,17 +33,24 @@ const PostBody = (props) => {
 
     return (
         <div className={"container text-slate-light " + (isMobile ? "mt-8" : "mt-10")}>
-            <div className={"bg-navy-light mb-5 container rounded " + (isMobile ? "p-3" : "p-5")}>
-                <h1 className="mb-0">{post.title}</h1>
-                <p className="text-slate">
-                    <Moment format="MMMM DD, YYYY" date={post.date_created} />
-                </p>
-                <ReactMarkdown
-                    source={post.body}
-                    renderers={{ code: CodeBlock }}
-                />
+            <CSSTransition
+                in={appear}
+                appear={true}
+                timeout={1000}
+                classNames="fade"
+            >
+                <div className={"bg-navy-light mb-5 container rounded " + (isMobile ? "p-3" : "p-5")}>
+                    <h1 className="text-slate-light mb-0">{post.title}</h1>
+                    <p className="text-slate">
+                        <Moment format="MMMM DD, YYYY" date={post.date_created} />
+                    </p>
+                    <ReactMarkdown
+                        source={post.body}
+                        renderers={{ code: CodeBlock }}
+                    />
 
-            </div>
+                </div>
+            </CSSTransition>
         </div>
 
     );

@@ -1,19 +1,3 @@
-.bg-navy {
-    background-color: #0a192f;
-}
-
-.text-slate-lightest {
-    color: #ccd6f6;
-}
-
-.text-slate {
-    color: #8892b0;
-}
-
-.text-green {
-    color: #64ffda;
-}
-
 .learn-more {
     color: #ccd6f6;
 }
@@ -23,21 +7,7 @@
     color: #64ffda;
 }
 
-.pt-10 {
-    padding-top: 96px;
-}
 
-.pt-8 {
-    padding-top: 76px;
-}
-
-.mb-7 {
-    margin-bottom: 67px;
-}
-
-.mt-7 {
-    margin-top: 76px;
-}
 
 .project-hr {
     border-width: 1px;

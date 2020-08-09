@@ -3,6 +3,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Typewriter from 'typewriter-effect';
 import './navbar.css';
+import '../../App.css';
 import { PostContext } from '../../providers/postContext';
 import { NavLink, useHistory } from 'react-router-dom';
 import { useCookies } from 'react-cookie';

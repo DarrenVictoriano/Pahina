@@ -6,10 +6,12 @@ import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
 import { useHistory } from 'react-router-dom';
+import { CSSTransition } from 'react-transition-group';
 
 const Login = () => {
 
-    const { mobileCheckState } = useContext(PostContext);
+    const { mobileCheckState, appearState } = useContext(PostContext);
+    const [appear] = appearState;
     const isMobile = mobileCheckState;
 
     const [isError, setIsError] = useState(false);
@@ -56,41 +58,48 @@ const Login = () => {
 
     return (
         <div className={"container text-slate " + (isMobile ? "mt-8" : "mt-10")}>
-            <div className="text-center">
-                <h1>Are you Darren?</h1>
-                <Form noValidate className="form-login mx-auto mt-5">
-                    <Form.Group controlId="userGroup">
-                        <Form.Control
-                            type="text"
-                            placeholder="username"
-                            value={username}
-                            onChange={e => setUsername(e.target.value)}
-                            isInvalid={isError} />
-                    </Form.Group>
+            <CSSTransition
+                in={appear}
+                appear={true}
+                timeout={1000}
+                classNames="fade"
+            >
+                <div className="text-center">
+                    <h1>Are you Darren?</h1>
+                    <Form noValidate className="form-login mx-auto mt-5">
+                        <Form.Group controlId="userGroup">
+                            <Form.Control
+                                type="text"
+                                placeholder="username"
+                                value={username}
+                                onChange={e => setUsername(e.target.value)}
+                                isInvalid={isError} />
+                        </Form.Group>
 
-                    <Form.Group controlId="passGroup">
-                        <Form.Control
-                            type="password"
-                            placeholder="password"
-                            value={password}
-                            onChange={e => setPassword(e.target.value)}
-                            isInvalid={isError} />
-                        <Form.Control.Feedback type="invalid">
-                            nice try.
+                        <Form.Group controlId="passGroup">
+                            <Form.Control
+                                type="password"
+                                placeholder="password"
+                                value={password}
+                                onChange={e => setPassword(e.target.value)}
+                                isInvalid={isError} />
+                            <Form.Control.Feedback type="invalid">
+                                nice try.
                         </Form.Control.Feedback>
-                    </Form.Group>
+                        </Form.Group>
 
-                    <Form.Group controlId="buttonGroup">
-                        <Button onClick={handleLogin} variant="primary" className="mx-2 btn-sizer btn-sm">
-                            Yes
+                        <Form.Group controlId="buttonGroup">
+                            <Button onClick={handleLogin} variant="primary" className="mx-2 btn-sizer btn-sm">
+                                Yes
                         </Button>
-                        <Button onClick={handleNope} variant="primary" className="mx-2 btn-sizer btn-sm" >
-                            Nope
+                            <Button onClick={handleNope} variant="primary" className="mx-2 btn-sizer btn-sm" >
+                                Nope
                         </Button>
-                    </Form.Group>
+                        </Form.Group>
 
-                </Form>
-            </div>
+                    </Form>
+                </div>
+            </CSSTransition>
         </div>
     );
 }

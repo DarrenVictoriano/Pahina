@@ -14,12 +14,16 @@ export const PostProvider = (props) => {
     // userID
     const [userID, setUserID] = useState("");
 
+    // for animation
+    const [appear, setAppear] = useState(true);
+
 
     return (
         <PostContext.Provider value={{
             "mobileCheckState": isMobile,
             "allPostState": [allPost, setAllPost],
-            "userIDState": [userID, setUserID]
+            "userIDState": [userID, setUserID],
+            "appearState": [appear, setAppear]
         }}>
             {props.children}
         </PostContext.Provider>
