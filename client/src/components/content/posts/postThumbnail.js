@@ -57,15 +57,16 @@ const PostThumbnail = ({ id, title, overview, date }) => {
         <div className={"bg-navy-light rounded container " + (isMobile ? "p-3 mb-3" : "p-5 mb-5")}>
             <div className="row">
                 <div className="col-lg-11">
-                    <h1 className={"text-slate-lighter mb-0"}>{title}</h1>
+                    <Link exact to={"/blog/" + id} className="link-router">
+                        <h1 className={"text-slate-light mb-0 read-article"}>{title}</h1>
+                    </Link>
                     <p className={"text-slate"}><Moment format="MMMM DD, YYYY" date={date} /></p>
-                    <div className={"text-slate"}>
+                    <div className={"text-slate-light"}>
                         <ReactMarkdown
                             source={overview + "..."}
                             renderers={{ code: CodeBlock }}
                         />
                     </div>
-                    <Link exact to={"/blog/" + id} className={"read-article font-weight-bold text-green "}>Read Article</Link>
                 </div>
                 {
                     cookies.token && <div className={"col-lg-1 " + (isMobile ? "mt-2" : "")}>

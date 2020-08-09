@@ -32,7 +32,7 @@ const PostBody = (props) => {
     return (
         <div className={"container text-slate-light " + (isMobile ? "mt-8" : "mt-10")}>
             <div className={"bg-navy-light mb-5 container rounded " + (isMobile ? "p-3" : "p-5")}>
-                <h1 className="text-slate-lighter mb-0">{post.title}</h1>
+                <h1 className="text-slate-light mb-0">{post.title}</h1>
                 <p className="text-slate">
                     <Moment format="MMMM DD, YYYY" date={post.date_created} />
                 </p>
