@@ -1,68 +1,22 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React App: Pahina
 
-## Available Scripts
+This react app serves as my portfolio as well as my personal blog. Under the hood this app lets me sign-in my account and post a blog that will show up on the "Blog" page.
 
-In the project directory, you can run:
+Note: Pahina means Page in _Tagalog._
 
-### `npm start`
+## Features:
+1. __Portfolio:__ this is a single page app that showcases my portfolio.
+2.  __Blog:__ a blog that renders Markdownsyntax. When I'm signed-in I can write a content while seeing a live view of the rendered markdown for easy editing and posting.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+### Thanks to these Dependencies:
+* [axios](https://www.npmjs.com/package/axios) - for sending request to my server.
+* [bootstrap](https://getbootstrap.com/) - I'm so used to using built-in classes from react, made my life easier creating a grid.
+* [react-moment](https://www.npmjs.com/package/react-moment) - this is what I used to parse the time format
+* [react-bootstrap](https://react-bootstrap.netlify.app/) - basically bootstrap into react components.
+* [react-cookie](https://www.npmjs.com/package/react-cookie) - I used this to save my token.
+* [react-helmet](https://www.npmjs.com/package/react-helmet) - hah, I just realized its so hard to change the HTML Body's background color with react. So I had to use this  🤣
+* [react-router-dom](https://www.npmjs.com/package/react-router-dom) - for easy routing using hooks.
+* [react-markdown](https://www.npmjs.com/package/react-markdown) - this is what I used to render Markdown!
+* [react-syntax-highlighter](https://www.npmjs.com/package/react-syntax-highlighter) - syntax highlighter for Markdown!
+* [react-textarea-autosize](https://www.npmjs.com/package/react-textarea-autosize) - you don't really see this unless you're me but this is really cool, instead of having a scroll bar, this will expand your text-area instead.
+* [typewriter-effect](https://www.npmjs.com/package/typewriter-effect) - I use this for my banner.
