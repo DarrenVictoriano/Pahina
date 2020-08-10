@@ -68,10 +68,12 @@ const PostThumbnail = ({ id, title, overview, date }) => {
                         <Link exact to={"/blog/" + id} className="link-router">
                             <h1 className={"text-slate-light mb-0 read-article"}>{title}</h1>
                         </Link>
-                        <p className={"text-slate"}><Moment format="MMMM DD, YYYY" date={date} /></p>
+                        <p className={"text-slate mb-0"}><Moment format="MMMM DD, YYYY" date={date} /></p>
+                        <hr></hr>
                         <div className={"text-slate-light"}>
                             <ReactMarkdown
                                 source={overview + "..."}
+                                escapeHtml={false}
                                 renderers={{ code: CodeBlock }}
                             />
                         </div>
