@@ -137,6 +137,7 @@ const PostForm = (props) => {
                             <h1 className="mb-4">{markdownTitle}</h1>
                             <ReactMarkdown
                                 source={markdownBody}
+                                escapeHtml={false}
                                 renderers={{ code: CodeBlock }}
                             />
                         </div>

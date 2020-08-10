@@ -41,11 +41,14 @@ const PostBody = (props) => {
             >
                 <div className={"bg-navy-light mb-5 container rounded " + (isMobile ? "p-3" : "p-5")}>
                     <h1 className="text-slate-light mb-0">{post.title}</h1>
+                    <p className="text-slate mb-0">by: Darren Victoriano</p>
                     <p className="text-slate">
                         <Moment format="MMMM DD, YYYY" date={post.date_created} />
                     </p>
+                    <hr className="mb-4"></hr>
                     <ReactMarkdown
                         source={post.body}
+                        escapeHtml={false}
                         renderers={{ code: CodeBlock }}
                     />
 
