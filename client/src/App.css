@@ -129,3 +129,8 @@
     opacity: 0;
 }
 
+hr {
+    border-width: 1px !important;
+    border-color: #8892b0 !important;
+    opacity: 0.4 !important;
+}
