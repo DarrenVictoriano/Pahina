@@ -80,7 +80,7 @@ const NavBar = (props) => {
                     </NavLink>
 
                     <NavLink
-                        exact to="/resume/DV_SQA.pdf"
+                        exact to="/resume/resume.pdf"
                         className="px-3 nav-link"
                         target="_blank"
                         onClick={() => setExpanded(false)}>
